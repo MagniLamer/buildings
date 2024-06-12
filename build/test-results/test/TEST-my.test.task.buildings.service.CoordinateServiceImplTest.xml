@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="my.test.task.buildings.service.CoordinateServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-12T13:30:47" hostname="DESKTOP-32CBVNF" time="105.628">
+  <properties/>
+  <testcase name="should validate signature()" classname="my.test.task.buildings.service.CoordinateServiceImplTest" time="105.628"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

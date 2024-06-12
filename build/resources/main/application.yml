@@ -1,0 +1,31 @@
+server:
+  port: 8184
+
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: myuser
+    password: mypassword
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
+      schema-locations: classpath:init-schema.sql
+#      data-locations: classpath:init-data.sql
+      mode: always
+emulator:
+  secret-key: "bUAjPPkWLcUhS4aX8kGaDNbVrOiH1OT1lKcmBXupmWq9CmJDgaBgIMfmnzaRB3tC"
+  api_key: "44dcd1f6a6d14651ad8ffb922e34f9c9"
+  geo_api_url: "https://api.geoapify.com/v1/geocode/search"
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    my.test.task: ERROR

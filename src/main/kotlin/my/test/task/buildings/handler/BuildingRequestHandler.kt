@@ -6,6 +6,7 @@ import org.springframework.ui.Model
 
 interface BuildingRequestHandler {
     fun saveBuilding(request: Map<String, String>, model: Model): String
+    fun updateBuilding(request: Map<String, String>, model: Model): String
     fun deleteBuilding(buildingId: String, model: Model): String
     fun getBuildingById(buildingId: String, model: Model): String
     fun getAllBuildings(model: Model):String

@@ -7,6 +7,7 @@ import my.test.task.buildings.domain.model.BuildingAddress
 import my.test.task.buildings.domain.model.BuildingCoordinates
 import my.test.task.buildings.mapper.BuildingConverter
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class BuildingConverterImpl : BuildingConverter {
@@ -31,6 +32,22 @@ class BuildingConverterImpl : BuildingConverter {
         }
     }
 
+    override fun updateBuildingEntity(building: Building, buildingEntity: BuildingEntity): BuildingEntity {
+        val address = building.buildingAddress
+        return BuildingEntity(
+            id = building.id,
+            name = building.name ?: buildingEntity.name,
+            street = address?.street ?: buildingEntity.street,
+            number = address?.number ?: buildingEntity.number,
+            postalCode = address?.postalCode ?: buildingEntity.postalCode,
+            city = address?.city ?: buildingEntity.city,
+            country = address?.country ?: buildingEntity.country,
+            coordinate_x = address?.coordinates?.coordinateX ?: buildingEntity.coordinate_x,
+            coordinate_y = address?.coordinates?.coordinateY ?: buildingEntity.coordinate_y,
+            description = building.description ?: buildingEntity.description
+        )
+    }
+
     override fun addCoordinateToBuilding(building: Building, geoResponse: GeoResponse?): Building {
         val coordinates = geoResponse?.features?.first()?.geometry?.coordinates
         return Building.BuildingBuilder.newBuilder()
@@ -51,6 +68,7 @@ class BuildingConverterImpl : BuildingConverter {
 
     override fun convertMapToBuilding(request: Map<String, String>): Building =
         Building.BuildingBuilder.newBuilder()
+            .id(request["buildingId"]?.let { UUID.fromString(it) })
             .name(request["buildingName"])
             .description(request["description"])
             .buildingAddress(

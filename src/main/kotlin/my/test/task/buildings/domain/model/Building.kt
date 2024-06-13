@@ -1,14 +1,23 @@
 package my.test.task.buildings.domain.model
 
+import java.util.UUID
+
 data class Building internal constructor(
+    val id:UUID?=null,
     val name: String? = null,
     val buildingAddress: BuildingAddress? = null,
     val description: String? = null
 ) {
     class BuildingBuilder internal constructor() {
+        private var id:UUID? = null
         private var name: String? = null
         private var buildingAddress: BuildingAddress? = null
         private var description: String? = null
+
+        fun id(id: UUID?): BuildingBuilder {
+            this.id = id
+            return this
+        }
 
         fun name(name: String?): BuildingBuilder {
             this.name = name
@@ -27,6 +36,7 @@ data class Building internal constructor(
 
         fun build(): Building {
             return Building(
+                id=id,
                 name = name,
                 buildingAddress = buildingAddress,
                 description = description
@@ -42,6 +52,7 @@ data class Building internal constructor(
                 val builder = BuildingBuilder()
                 if (src != null) {
                     builder
+                        .id(src.id)
                         .name(src.name)
                         .buildingAddress(src.buildingAddress)
                         .description(src.description)

@@ -1,12 +1,11 @@
 package my.test.task.buildings.controller
 
 import lombok.extern.slf4j.Slf4j
-import my.test.task.buildings.annotation.CheckSignature
 import my.test.task.buildings.annotation.LogRequest
-import my.test.task.buildings.domain.api.BuildingRequest
+import my.test.task.buildings.domain.api.BuildingFilterRequest
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.handler.BuildingRequestHandler
-import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+
 
 @Slf4j
 @Controller
@@ -60,4 +60,10 @@ class BuildingController(
     @DeleteMapping("/{id}")
     fun deleteReadRecords(@PathVariable(name = "id") buildingId: String, model: Model): String =
         buildingRequestHandler.deleteBuilding(buildingId, model)
+
+    @PostMapping("/filter")
+    fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<Building>>? {
+        val buildings: List<Building> = buildingRequestHandler.filterBuildings(filterRequest)
+        return ResponseEntity.ok(buildings)
+    }
 }

@@ -1,7 +1,7 @@
 package my.test.task.buildings.handler
 
-import my.test.task.buildings.domain.api.BuildingRequest
-import my.test.task.buildings.domain.api.BuildingResponse
+import my.test.task.buildings.domain.api.BuildingFilterRequest
+import my.test.task.buildings.domain.model.Building
 import org.springframework.ui.Model
 
 interface BuildingRequestHandler {
@@ -10,4 +10,5 @@ interface BuildingRequestHandler {
     fun deleteBuilding(buildingId: String, model: Model): String
     fun getBuildingById(buildingId: String, model: Model): String
     fun getAllBuildings(model: Model):String
+    fun filterBuildings(filterRequest: BuildingFilterRequest): List<Building>
 }

@@ -1,7 +1,6 @@
 package my.test.task.buildings.mapper.impl
 
 import my.test.task.buildings.domain.api.GeoResponse
-import my.test.task.buildings.domain.entity.BuildingAddressEntity
 import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingAddress
@@ -20,15 +19,13 @@ class BuildingConverterImpl : BuildingConverter {
             val address = building.buildingAddress
             BuildingEntity(
                 name = building.name,
-                address = BuildingAddressEntity(
-                    street = address?.street,
-                    number = address?.number,
-                    postalCode = address?.postalCode,
-                    city = address?.city,
-                    country = address?.country,
-                    coordinate_x = address?.coordinates?.coordinateX,
-                    coordinate_y = address?.coordinates?.coordinateY
-                ),
+                street = address?.street,
+                number = address?.number,
+                postalCode = address?.postalCode,
+                city = address?.city,
+                country = address?.country,
+                coordinate_x = address?.coordinates?.coordinateX,
+                coordinate_y = address?.coordinates?.coordinateY,
                 description = building.description
             )
         }

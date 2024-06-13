@@ -26,14 +26,12 @@ class BuildingController(
 ) {
 
     @LogRequest
-    @CheckSignature
     @GetMapping("/{id}")
     fun getBuildingById(@PathVariable(name = "id") buildingId: String, model: Model): String {
         return buildingRequestHandler.getBuildingById(buildingId, model);
     }
 
     @LogRequest
-    @CheckSignature
     @GetMapping("/")
     fun getAllBuildings(model: Model): String =
         buildingRequestHandler.getAllBuildings(model)
@@ -41,16 +39,16 @@ class BuildingController(
     @GetMapping("/add")
     fun addBuilding(model: Model): String = "add"
 
+    @GetMapping("/delete")
+    fun delete(model: Model): String = "delete"
+
     @LogRequest
-    @CheckSignature
     @PostMapping("/")
     fun saveBuildings(@RequestBody request: Map<String, String>, model: Model): String =
         buildingRequestHandler.saveBuilding(request, model)
 
     @LogRequest
-    @CheckSignature
     @DeleteMapping("/{id}")
     fun deleteReadRecords(@PathVariable(name = "id") buildingId: String, model: Model): String =
         buildingRequestHandler.deleteBuilding(buildingId, model)
-
 }

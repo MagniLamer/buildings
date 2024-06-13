@@ -18,7 +18,7 @@ spring:
     init:
       platform: postgres
       schema-locations: classpath:init-schema.sql
-#      data-locations: classpath:init-data.sql
+      data-locations: classpath:init-data.sql
       mode: always
 emulator:
   secret-key: "bUAjPPkWLcUhS4aX8kGaDNbVrOiH1OT1lKcmBXupmWq9CmJDgaBgIMfmnzaRB3tC"

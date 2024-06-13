@@ -8,6 +8,7 @@ import my.test.task.buildings.service.CoordinateService
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.ui.Model
+import java.util.UUID
 
 internal const val BUILDING = "buildings"
 
@@ -25,11 +26,14 @@ class BuildingRequestHandlerImpl(
             val buildingEntity = buildingConverter.convertBuildingToEntity(buildingWithCoordinates)
             buildingJpaRepository.save(buildingEntity)
 //        }
-        return "success_adding"
+        return "success"
     }
 
     override fun deleteBuilding(buildingId: String, model: Model): String {
-        TODO("Not yet implemented")
+        buildingJpaRepository.findById(UUID.fromString(buildingId)).map{
+            buildingJpaRepository.delete(it)
+        }
+        return "success"
     }
 
     override fun getBuildingById(buildingId: String, model: Model): String {

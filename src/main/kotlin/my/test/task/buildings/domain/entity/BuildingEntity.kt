@@ -21,12 +21,15 @@ import java.util.UUID
 data class BuildingEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
     val id: UUID? = null,
     val name: String? = null,
-
-    @OneToOne(mappedBy = "building", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val address: BuildingAddressEntity? = null,
+    val street: String? = null,
+    val number: Int? = null,
+    val postalCode: String? = null,
+    val city: String? = null,
+    val country: String? = null,
+    val coordinate_x: String? = null,
+    val coordinate_y: String? = null,
     val description: String? = null
 )

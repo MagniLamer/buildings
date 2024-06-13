@@ -11,42 +11,52 @@
         body {
             background-color: #f8f9fa;
         }
+
         .navbar {
             background-color: #343a40;
         }
+
         .navbar a {
             color: #ffffff !important;
         }
+
         .btn-custom {
             background-color: #007bff;
             color: white;
         }
+
         .form-container {
             margin-top: 20px;
         }
+
         .form-group label {
             font-weight: bold;
         }
+
         .card {
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         .form-control {
             border-radius: 5px;
             border: 1px solid #ced4da;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         }
+
         .form-control:focus {
             border-color: #80bdff;
             outline: 0;
-            box-shadow: 0 0 8px rgba(0,123,255,0.25);
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
         }
+
         .form-header {
             background-color: #007bff;
             color: white;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
         }
+
         .form-header h3 {
             margin: 0;
             padding: 15px;
@@ -66,7 +76,7 @@
                 <a class="nav-link" href="/public/api/buildings/add">Add Building</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/delete-building">Delete Building</a>
+                <a class="nav-link" href="/public/api/buildings/delete">Delete Building</a>
             </li>
         </ul>
     </div>
@@ -85,40 +95,46 @@
                         <div class="form-group">
                             <label for="buildingName">Building Name</label>
                             <input type="text" class="form-control" id="buildingName" name="buildingName" required
-                                   th:attr="pattern='[A-Za-z0-9 ]{1,100}'" title="Building Name should be alphanumeric and up to 100 characters"
+                                   th:attr="pattern='[A-Za-z0-9 ]{1,100}'"
+                                   title="Building Name should be alphanumeric and up to 100 characters"
                                    placeholder="e.g., Empire State">
                         </div>
                         <div class="form-group">
                             <label for="street">Street</label>
                             <input type="text" class="form-control" id="street" name="street" required
-                                   th:attr="pattern='[A-Za-z0-9 ]{1,100}'" title="Street should be alphanumeric and up to 100 characters"
+                                   th:attr="pattern='[A-Za-z0-9 ]{1,100}'"
+                                   title="Street should be alphanumeric and up to 100 characters"
                                    placeholder="e.g., Main Street">
                         </div>
                         <div class="form-group">
                             <label for="number">Number</label>
                             <input type="text" class="form-control" id="number" name="number" required
-                                   th:attr="pattern='[0-9A-Za-z-]{1,10}'" title="Number should be alphanumeric, dashes allowed, and up to 10 characters"
+                                   th:attr="pattern='[0-9A-Za-z-]{1,10}'"
+                                   title="Number should be alphanumeric, dashes allowed, and up to 10 characters"
                                    placeholder="e.g., 123A">
                         </div>
                         <div class="form-group">
                             <label for="city">City</label>
                             <input type="text" class="form-control" id="city" name="city" required
-                                   th:attr="pattern='[A-Za-z ]{1,50}'" title="City should be alphabetic and up to 50 characters"
+                                   th:attr="pattern='[A-Za-z ]{1,50}'"
+                                   title="City should be alphabetic and up to 50 characters"
                                    placeholder="e.g., New York">
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
                             <input type="text" class="form-control" id="country" name="country" required
-                                   th:attr="pattern='[A-Za-z ]{1,50}'" title="Country should be alphabetic and up to 50 characters"
+                                   th:attr="pattern='[A-Za-z ]{1,50}'"
+                                   title="Country should be alphabetic and up to 50 characters"
                                    placeholder="e.g., United States">
                         </div>
                         <div class="form-group">
                             <label for="postalCode">Postal Code</label>
                             <input type="text" class="form-control" id="postalCode" name="postalCode" required
-                                   th:attr="pattern='[0-9A-Za-z ]{1,20}'" title="Postal Code should be alphanumeric and up to 20 characters"
+                                   th:attr="pattern='[0-9A-Za-z ]{1,20}'"
+                                   title="Postal Code should be alphanumeric and up to 20 characters"
                                    placeholder="e.g., 10001">
                         </div>
-                        <button type="submit" class="btn btn-custom btn-block">Add Building</button>
+                        <button class="btn btn-custom btn-block">Add Building</button>
                     </form>
                 </div>
             </div>
@@ -127,9 +143,8 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log("Event listeners added");
-        document.querySelector('.btn-block').addEventListener('click', () => handleButtonClick());
+    document.getElementById('buildingForm').addEventListener('submit', function (event) {
+        event.preventDefault();
 
         function handleButtonClick() {
             console.log("Button click");
@@ -149,15 +164,18 @@
                 body: JSON.stringify(formData)
             })
                 .then(response => {
-                    console.error('Success:', response);
+                    alert('Building added to DB');
+                    window.location.href = '/public/api/buildings/'
                 })
                 .catch(error => {
 
                     console.error('Error:', error);
+                    alert('Error building deleting. Please try again.')
                 });
-            window.location.href = '/public/api/buildings/'
+
         }
-    });
+    });0
+
 </script>
 
 </body>

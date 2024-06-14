@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j
 import my.test.task.buildings.annotation.LogRequest
 import my.test.task.buildings.domain.api.BuildingFilterRequest
 import my.test.task.buildings.domain.model.Building
+import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.handler.BuildingRequestHandler
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -58,12 +60,13 @@ class BuildingController(
 
     @LogRequest
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     fun deleteReadRecords(@PathVariable(name = "id") buildingId: String, model: Model): String =
         buildingRequestHandler.deleteBuilding(buildingId, model)
 
     @PostMapping("/filter")
-    fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<Building>>? {
-        val buildings: List<Building> = buildingRequestHandler.filterBuildings(filterRequest)
+    fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<BuildingDTO>>? {
+        val buildings: List<BuildingDTO> = buildingRequestHandler.filterBuildings(filterRequest)
         return ResponseEntity.ok(buildings)
     }
 }

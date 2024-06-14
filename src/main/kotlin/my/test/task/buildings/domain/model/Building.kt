@@ -1,13 +1,16 @@
 package my.test.task.buildings.domain.model
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.UUID
 
 data class Building internal constructor(
+    @JsonProperty("buildingId")
     val id:UUID?=null,
     val name: String? = null,
     val buildingAddress: BuildingAddress? = null,
     val description: String? = null
 ) {
+
     class BuildingBuilder internal constructor() {
         private var id:UUID? = null
         private var name: String? = null

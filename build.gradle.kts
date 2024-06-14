@@ -29,6 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springVersion")
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springVersion")
     implementation("org.springframework.boot:spring-boot-starter-validation:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("io.jsonwebtoken:jjwt-api:0.12.5")
+
     implementation("org.postgresql:postgresql")
     implementation ("commons-codec:commons-codec:1.17.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

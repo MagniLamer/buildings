@@ -1,6 +1,9 @@
 server:
   port: 8184
-
+security:
+  user:
+    name: user
+    password: password
 spring:
   jpa:
     open-in-view: false

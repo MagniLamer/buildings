@@ -4,7 +4,9 @@ import jakarta.persistence.criteria.Predicate
 import jakarta.transaction.Transactional
 import lombok.extern.slf4j.Slf4j
 import my.test.task.buildings.domain.api.BuildingFilterRequest
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
+import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.exception.BuildingIdNotFoundException
 import my.test.task.buildings.exception.IncorrectBuildingIdException
 import my.test.task.buildings.handler.BuildingRequestHandler
@@ -67,10 +69,10 @@ class BuildingRequestHandlerImpl(
         val firstPageWithTwentyRecords = PageRequest.of(0, 20)
         val allBuildings = buildingJpaRepository.findAll(firstPageWithTwentyRecords)
         model.addAttribute(BUILDING, allBuildings)
-        return "filter"
+        return "main_page"
     }
 
-    override fun filterBuildings(filterRequest: BuildingFilterRequest): List<Building> {
+    override fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingDTO> {
         val spec = Specification<Building> { root, query, criteriaBuilder ->
             val predicates = mutableListOf<Predicate>()
 
@@ -89,7 +91,8 @@ class BuildingRequestHandlerImpl(
 
             criteriaBuilder.and(*predicates.toTypedArray())
         }
+        val buildings = buildingJpaRepository.findAll(spec)
 
-        return buildingJpaRepository.findAll(spec)
+        return  buildingConverter.convertEntityToBuilding(buildings)
     }
 }

@@ -1,5 +1,6 @@
 package my.test.task.buildings.domain.entity
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -22,6 +23,7 @@ data class BuildingEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
+    @JsonProperty("buildingId")
     val id: UUID? = null,
     val name: String? = null,
     val street: String? = null,

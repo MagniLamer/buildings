@@ -5,14 +5,30 @@ import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingAddress
 import my.test.task.buildings.domain.model.BuildingCoordinates
+import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.mapper.BuildingConverter
 import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
 class BuildingConverterImpl : BuildingConverter {
-    override fun convertEntityToBuilding(buildingEntity: BuildingEntity): Building {
+    fun convertEntityToBuilding(buildingEntity: BuildingEntity): Building {
         TODO("Not yet implemented")
+    }
+
+    override fun convertEntityToBuilding(buildingEntities: List<Building>): List<BuildingDTO> {
+        val buildings = mutableListOf<BuildingDTO>()
+        for (building in buildingEntities) {
+            buildings.add(
+                BuildingDTO.BuildingDTOBuilder.newBuilder()
+                    .id(building.id.toString())
+                    .buildingAddress(building.buildingAddress)
+                    .name(building.name)
+                    .description(building.description)
+                    .build()
+            )
+        }
+        return buildings
     }
 
     override fun convertBuildingToEntity(building: Building): BuildingEntity {

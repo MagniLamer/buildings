@@ -146,9 +146,11 @@
             }
         })
             .then(data => {
-                alert('Deleted successfully!');
-                window.location.href = '/public/api/buildings/';
-            })
+                if (data.success) {
+                    window.location.href = '/public/api/buildings/';
+                } else {
+                    alert('Invalid credentials. Please try again.');
+                }})
             .catch(error => {
                 console.error('Error:', error);
                 alert('Error building deleting. Please try again.');

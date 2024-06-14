@@ -1,7 +1,6 @@
 package my.test.task.buildings.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import my.test.task.buildings.configuration.Configuration
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.mapper.BuildingConverter
 import my.test.task.buildings.service.impl.CoordinateServiceImpl

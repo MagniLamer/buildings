@@ -34,20 +34,6 @@
       transform: scale(1.1);
     }
 
-    /*.navbar-brand {*/
-    /*  position: absolute;*/
-    /*  bottom: 0;*/
-    /*  left: 10px;*/
-    /*  font-size: 24px;*/
-    /*  font-weight: bold;*/
-    /*  color: white;*/
-    /*}*/
-
-    /*.navbar-brand img {*/
-    /*  height: 30px;*/
-    /*  margin-right: 10px;*/
-    /*}*/
-
     .container {
       margin-top: 10px;
       max-width: 500px;
@@ -108,7 +94,6 @@
         </li>
       </ul>
     </div>
-
   </div>
 </nav>
 
@@ -118,7 +103,7 @@
       <h3>Login</h3>
     </div>
     <div class="card-body">
-      <form id="loginForm">
+      <form method="post" action="/login">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" name="username" required placeholder="Enter Username">
@@ -132,35 +117,5 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.getElementById('loginForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password })
-    })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                window.location.href = '/public/api/buildings/';
-              } else {
-                alert('Invalid credentials. Please try again.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert('Error during login. Please try again.');
-            });
-  });
-</script>
-
 </body>
 </html>

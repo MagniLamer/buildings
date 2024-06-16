@@ -69,18 +69,10 @@ class WebClientConfiguration {
         )
         mapper.propertyNamingStrategy = PropertyNamingStrategies.LOWER_CAMEL_CASE
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
         mapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true)
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        mapper.setVisibility(
-            mapper.serializationConfig.defaultVisibilityChecker
-                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
-                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
-                .withCreatorVisibility(JsonAutoDetect.Visibility.NONE)
-        )
         return mapper
     }
 }

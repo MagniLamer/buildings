@@ -8,6 +8,9 @@ import org.aspectj.lang.annotation.Aspect
 import org.hibernate.query.sqm.tree.SqmNode.log
 import org.springframework.stereotype.Component
 
+/**
+ * Used for a log adding for all methods
+ */
 @Aspect
 @Slf4j
 @Component
@@ -19,7 +22,7 @@ class LogRequestAspect {
 
         val result = proceedingJoinPoint.proceed()
 
-        log.info("[BUILDING SERViCE] Sending response,  payload $result",)
+        log.info("[BUILDING SERViCE] Request processed successfully")
         return result
     }
 }

@@ -2,7 +2,7 @@ package my.test.task.buildings.service.impl
 
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.service.GeoRequestService
-import my.test.task.buildings.webclient.ResponseDetails
+import my.test.task.buildings.domain.model.ResponseDetails
 import my.test.task.buildings.webclient.WebClientService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -11,9 +11,9 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import java.util.concurrent.CompletableFuture
 
-private const val TEXT_PARAM = "text"
-private const val API_KEY_PARAM = "apiKey"
-private const val TIMEOUT_30_SEC = 30_000L
+internal const val TEXT_PARAM = "text"
+internal const val API_KEY_PARAM = "apiKey"
+internal const val TIMEOUT_30_SEC = 30_000L
 
 @Service
 class GeoRequestServiceImpl(

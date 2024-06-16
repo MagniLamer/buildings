@@ -1,77 +1,13 @@
 {
-  "type": "FeatureCollection",
   "features": [
     {
-      "type": "Feature",
-      "properties": {
-        "datasource": {
-          "sourcename": "openstreetmap",
-          "attribution": "© OpenStreetMap contributors",
-          "license": "Open Database License",
-          "url": "https://www.openstreetmap.org/copyright"
-        },
-        "country": "Ukraine",
-        "country_code": "ua",
-        "state": "Dnipropetrovsk Oblast",
-        "city": "Dnipro",
-        "municipality": "Dnipro Urban Hromada",
-        "postcode": "49000",
-        "district": "Dnipro Raion",
-        "borough": "Industrialnyi district",
-        "street": "Kholodylna Street",
-        "housenumber": "69",
-        "lon": 35.0443163987336,
-        "lat": 48.53046865,
-        "result_type": "building",
-        "formatted": "Kholodylna Street, 69, Dnipro Raion, Dnipro, 49000, Ukraine",
-        "address_line1": "Kholodylna Street, 69",
-        "address_line2": "Dnipro Raion, Dnipro, 49000, Ukraine",
-        "category": "building.residential",
-        "timezone": {
-          "name": "Europe/Kyiv",
-          "offset_STD": "+02:00",
-          "offset_STD_seconds": 7200,
-          "offset_DST": "+03:00",
-          "offset_DST_seconds": 10800,
-          "abbreviation_STD": "EET",
-          "abbreviation_DST": "EEST"
-        },
-        "plus_code": "8GWQG2JV+5P",
-        "plus_code_short": "G2JV+5P Dnipro, Dnipropetrovsk Oblast, Ukraine",
-        "rank": {
-          "importance": 0.11000999999999997,
-          "popularity": 6.928757955281336,
-          "confidence": 0.7200000000000001,
-          "confidence_city_level": 1,
-          "confidence_street_level": 0.7200000000000001,
-          "match_type": "full_match"
-        },
-        "place_id": "51609ee528ac85414059d2a68f65e6434840f00102f9019cfc0d0500000000c00203"
-      },
       "geometry": {
         "type": "Point",
         "coordinates": [
           35.0443163987336,
           48.53046865
         ]
-      },
-      "bbox": [
-        35.0439977,
-        48.5303565,
-        35.0446351,
-        48.5305809
-      ]
+      }
     }
-  ],
-  "query": {
-    "text": "69 Holodilna, Dnipro 49000, Ukraine",
-    "parsed": {
-      "housenumber": "69",
-      "street": "holodilna",
-      "postcode": "49000",
-      "city": "dnipro",
-      "country": "ukraine",
-      "expected_type": "building"
-    }
-  }
+  ]
 }

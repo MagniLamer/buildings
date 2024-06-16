@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Buildings</title>
+  <title>Testing Project - All Buildings</title>
 
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -11,6 +11,7 @@
     body {
       background-color: #f8f9fa;
       font-family: Arial, sans-serif;
+      margin-bottom: 60px; /* Make space for the footer */
     }
 
     .navbar {
@@ -35,33 +36,52 @@
       background-color: #0056b3;
       transform: scale(1.1);
     }
+
     .container {
-      margin-top: 50px;
+      margin-top: 20px;
     }
+
     .table-container {
       margin-top: 20px;
     }
+
     .card {
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+
     .table {
       margin-bottom: 0;
     }
+
     .table thead th {
       background-color: #007bff;
       color: white;
-    }
-    .card-header {
-      background-color: #007bff;
-      color: white;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
       text-align: center;
+      vertical-align: middle;
+      white-space: nowrap; /* Ensure headers are on one line */
     }
-    .card-header h3 {
-      margin: 0;
-      padding: 15px;
+
+    .table th, .table td {
+      text-align: center; /* Center align text in table cells */
+    }
+
+    .card-body {
+      padding: 0;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, #6f42c1, #007bff);
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .footer p {
+      margin-bottom: 0; /* Remove bottom margin from the paragraph */
     }
   </style>
 </head>
@@ -69,7 +89,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container justify-content-center">
-    <ul class="navbar-nav">
+    <a class="navbar-brand" href="#">
+      <img src="../logo.png" height="30" alt="Logo">
+      The Awesome Project
+    </a>
+    <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" href="/public/api/buildings/">All Buildings</a>
       </li>
@@ -88,9 +112,6 @@
 
 <div class="container">
   <div class="card">
-    <div class="card-header">
-      <h3>Database contains the following building data</h3>
-    </div>
     <div class="card-body table-container">
       <table class="table table-hover">
         <thead>
@@ -117,9 +138,8 @@
           <td th:text="${building.postalCode}">Postal Code</td>
           <td th:text="${building.city}">City</td>
           <td th:text="${building.country}">Country</td>
-            <td th:text="${building.coordinate_x}">X</td>,
-            <td th:text="${building.coordinate_y}">Y</td>
-
+          <td th:text="${building.coordinate_x}">X</td>
+          <td th:text="${building.coordinate_y}">Y</td>
         </tr>
         </tbody>
       </table>
@@ -130,9 +150,11 @@
   </div>
 </div>
 
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 The Awesome Project. All rights reserved.</p>
+  </div>
+</footer>
+
 </body>
 </html>

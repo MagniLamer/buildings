@@ -1,7 +1,7 @@
 package my.test.task.buildings.service
 
 import my.test.task.buildings.domain.model.Building
-import my.test.task.buildings.webclient.ResponseDetails
+import my.test.task.buildings.domain.model.ResponseDetails
 import java.util.concurrent.CompletableFuture
 
 interface GeoRequestService {

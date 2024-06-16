@@ -1,7 +1,8 @@
 package my.test.task.buildings.webclient.impl
 
-import my.test.task.buildings.webclient.ResponseDetails
+import my.test.task.buildings.domain.model.ResponseDetails
 import my.test.task.buildings.webclient.WebClientService
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.util.MultiValueMap
 import org.springframework.web.reactive.function.client.WebClient
@@ -37,7 +38,6 @@ class WebClientServiceImpl(
             }
             .acceptCharset(StandardCharsets.UTF_8)
             .retrieve()
-//            .onStatus(HttpStatus::isError) { Mono.empty() }
             .toEntity(String::class.java)
             .flatMap {
                 Mono.justOrEmpty(ResponseDetails(it))

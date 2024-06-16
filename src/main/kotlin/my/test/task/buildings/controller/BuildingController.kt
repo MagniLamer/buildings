@@ -64,6 +64,7 @@ class BuildingController(
     fun deleteReadRecords(@PathVariable(name = "id") buildingId: String, model: Model): String =
         buildingRequestHandler.deleteBuilding(buildingId, model)
 
+    @LogRequest
     @PostMapping("/filter")
     fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<BuildingDTO>>? {
         val buildings: List<BuildingDTO> = buildingRequestHandler.filterBuildings(filterRequest)

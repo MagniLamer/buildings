@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 /*
 Catches all exception and return an error page
  */
-
 @Slf4j
 @ControllerAdvice
 class GlobalExceptionHandler {

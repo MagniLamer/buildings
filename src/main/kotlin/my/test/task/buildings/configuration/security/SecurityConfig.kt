@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 
+internal const val USER_ROLE= "USER"
+internal const val ADMIN_ROLE= "ADMIN"
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +26,11 @@ class SecurityConfig(
     @Value("\${security.user.name}")
     private val userName: String ,
     @Value("\${security.user.password}")
-    private val pass: String
+    private val pass: String,
+    @Value("\${security.admin.name}")
+    private val adminName: String ,
+    @Value("\${security.admin.password}")
+    private val adminPass: String
 ) {
     @Bean
     @Throws(Exception::class)
@@ -55,7 +61,6 @@ class SecurityConfig(
     }
 
     @Bean
-    @Throws(Exception::class)
     fun authenticationManager(http: HttpSecurity): AuthenticationManager? {
         val auth = http.getSharedObject(AuthenticationManagerBuilder::class.java)
         auth.userDetailsService(userDetailsService())
@@ -74,13 +79,13 @@ class SecurityConfig(
         manager.createUser(
             User.withUsername(userName)
                 .password(passwordEncoder()?.encode(pass))
-                .roles("USER")
+                .roles(USER_ROLE)
                 .build()
         )
         manager.createUser(
-            User.withUsername("admin")
-                .password(passwordEncoder()?.encode("adminPass"))
-                .roles("USER", "ADMIN")
+            User.withUsername(adminName)
+                .password(passwordEncoder()?.encode(adminPass))
+                .roles(USER_ROLE, ADMIN_ROLE)
                 .build()
         )
         return manager

@@ -10,10 +10,19 @@ import my.test.task.buildings.mapper.BuildingConverter
 import org.springframework.stereotype.Service
 import java.util.UUID
 
+internal const val BUILDING_ID_PARAM = "buildingId"
+internal const val BUILDING_NAME_PARAM = "buildingName"
+internal const val DESCRIPTION_PARAM = "description"
+internal const val CITY_PARAM = "city"
+internal const val COUNTRY_PARAM = "country"
+internal const val STREET_PARAM = "street"
+internal const val NUMBER_PARAM = "number"
+internal const val POSTAL_CODE_PARAM = "postalCode"
+
 @Service
 class BuildingConverterImpl : BuildingConverter {
-    fun convertEntityToBuilding(buildingEntity: BuildingEntity): Building {
-        TODO("Not yet implemented")
+    fun convertEntityToBuilding(buildingEntity: BuildingEntity): Building? {
+        return null
     }
 
     override fun convertEntityToBuilding(buildingEntities: List<Building>): List<BuildingDTO> {
@@ -82,19 +91,20 @@ class BuildingConverterImpl : BuildingConverter {
             .build()
     }
 
-    override fun convertMapToBuilding(request: Map<String, String>): Building =
-        Building.BuildingBuilder.newBuilder()
-            .id(request["buildingId"]?.let { UUID.fromString(it) })
-            .name(request["buildingName"])
-            .description(request["description"])
+    override fun convertMapToBuilding(request: Map<String, String>): Building {
+        return Building.BuildingBuilder.newBuilder()
+            .id(request[BUILDING_ID_PARAM]?.let { UUID.fromString(it) })
+            .name(request[BUILDING_NAME_PARAM])
+            .description(request[DESCRIPTION_PARAM])
             .buildingAddress(
                 BuildingAddress.BuildingAddressBuilder.newBuilder()
-                    .city(request["city"])
-                    .country(request["country"])
-                    .street(request["street"])
-                    .number(request["number"]?.toInt())
-                    .postalCode(request["postalCode"])
+                    .city(request[CITY_PARAM])
+                    .country(request[COUNTRY_PARAM])
+                    .street(request[STREET_PARAM])
+                    .number(request[NUMBER_PARAM]?.toInt())
+                    .postalCode(request[POSTAL_CODE_PARAM])
                     .build()
             )
             .build()
+    }
 }

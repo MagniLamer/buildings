@@ -4,6 +4,9 @@ security:
   user:
     name: user
     password: password
+  admin:
+    name: admin
+    password: adminPass
 spring:
   jpa:
     open-in-view: false

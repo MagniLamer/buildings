@@ -7,7 +7,6 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "1.8.10"
-    application
 }
 
 group = "my.test.task"
@@ -56,8 +55,4 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }
-}
-
-application {
-    mainClass.set("BuildingsApplicationKt")
 }

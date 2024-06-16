@@ -37,7 +37,7 @@ class BuildingRequestHandlerImpl(
         val buildingEntity = buildingConverter.convertBuildingToEntity(buildingWithCoordinates)
         buildingJpaRepository.save(buildingEntity)
         log.info("The building $buildingWithCoordinates \n was added to DB")
-        return "error"
+        return "add"
     }
 
     @Transactional
@@ -49,7 +49,7 @@ class BuildingRequestHandlerImpl(
                 buildingJpaRepository.save(updateBuildingEntity)
                 log.info("The building with id $it updated")
             }.orElseThrow { BuildingIdNotFoundException() }
-            return "success"
+            return "update"
         } ?: throw IncorrectBuildingIdException()
     }
 
@@ -58,7 +58,7 @@ class BuildingRequestHandlerImpl(
             buildingJpaRepository.delete(it)
             log.info("The building with id $buildingId was deleted")
         }
-        return "success"
+        return "delete"
     }
 
     override fun getBuildingById(buildingId: String, model: Model): String {

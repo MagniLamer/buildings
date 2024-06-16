@@ -13,9 +13,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  kotlin-app:
+  building-app:
     build: .
-    container_name: kotlin-app
+    container_name: building-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
       SPRING_DATASOURCE_USERNAME: myuser

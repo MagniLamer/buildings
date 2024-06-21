@@ -31,6 +31,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("io.jsonwebtoken:jjwt-api:0.12.5")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+
+
     implementation("org.postgresql:postgresql")
     implementation ("commons-codec:commons-codec:1.17.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

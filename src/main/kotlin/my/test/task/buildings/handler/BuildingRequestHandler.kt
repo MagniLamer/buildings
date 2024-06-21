@@ -12,4 +12,5 @@ interface BuildingRequestHandler {
     fun getBuildingById(buildingId: String, model: Model): String
     fun getAllBuildings(model: Model):String
     fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingDTO>
+
 }

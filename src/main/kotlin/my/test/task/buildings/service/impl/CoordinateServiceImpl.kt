@@ -19,8 +19,7 @@ class CoordinateServiceImpl(
     private val geoRequestService: GeoRequestService
 ) : CoordinateService {
 
-    override fun buildBuildingWithCoordinates(request: Map<String, String>): Building {
-        val building = buildingConverter.convertMapToBuilding(request)
+    override fun addCoordinatesToBuilding(building:Building): Building {
         val responseDetails = geoRequestService.performRequest(building).get()
         val geoResponse: GeoResponse? = try {
             customObjectMapper.readValue(responseDetails.response.body, GeoResponse::class.java)
@@ -31,6 +30,7 @@ class CoordinateServiceImpl(
             )
             null
         }
+
         return buildingConverter.addCoordinateToBuilding(building, geoResponse)
     }
 }

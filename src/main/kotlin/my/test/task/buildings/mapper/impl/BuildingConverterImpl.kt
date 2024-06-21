@@ -60,7 +60,7 @@ class BuildingConverterImpl : BuildingConverter {
     override fun updateBuildingEntity(building: Building, buildingEntity: BuildingEntity): BuildingEntity {
         val address = building.buildingAddress
         return BuildingEntity(
-            id = building.id,
+            id = building.id ?: buildingEntity.id,
             name = building.name ?: buildingEntity.name,
             street = address?.street ?: buildingEntity.street,
             number = address?.number ?: buildingEntity.number,

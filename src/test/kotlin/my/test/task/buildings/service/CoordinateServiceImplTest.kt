@@ -65,7 +65,7 @@ class CoordinateServiceImplTest {
             .willReturn(CompletableFuture.completedFuture(responseDetails))
 
         //when
-        coordinateServiceImpl.buildBuildingWithCoordinates(params)
+        coordinateServiceImpl.addCoordinatesToBuilding(mockBuilding)
 
         //then
         verify(buildingConverter).addCoordinateToBuilding(anyOrNull(), anyOrNull())

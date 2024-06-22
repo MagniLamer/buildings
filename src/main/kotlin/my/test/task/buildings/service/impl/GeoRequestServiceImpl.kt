@@ -1,5 +1,6 @@
 package my.test.task.buildings.service.impl
 
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.service.GeoRequestService
 import my.test.task.buildings.domain.model.ResponseDetails
@@ -24,7 +25,7 @@ class GeoRequestServiceImpl(
     private val geoApiUrl: String,
 ) : GeoRequestService {
 
-    override fun performRequest(building: Building): CompletableFuture<ResponseDetails> {
+    override fun performRequest(building: BuildingEntity): CompletableFuture<ResponseDetails> {
         return webClient.performGetRequest(
             apiUrl = geoApiUrl,
             params = buildParams(building),
@@ -33,14 +34,14 @@ class GeoRequestServiceImpl(
         )
     }
 
-   private fun buildParams(building: Building): MultiValueMap<String, String> =
+   private fun buildParams(building: BuildingEntity): MultiValueMap<String, String> =
         LinkedMultiValueMap<String, String>().apply {
             add(TEXT_PARAM, buildAddress(building))
             add(API_KEY_PARAM, apiKey)
         }
 
-    private  fun buildAddress(building: Building): String =
-        with(building.buildingAddress) {
+    private  fun buildAddress(building: BuildingEntity): String =
+        with(building) {
             "${this?.number} ${this?.street}, ${this?.city} ${this?.postalCode}, ${this?.country}"
         }
 }

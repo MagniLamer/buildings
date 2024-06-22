@@ -3,7 +3,6 @@ package my.test.task.buildings.service.impl
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingAddress
 import my.test.task.buildings.domain.model.ResponseDetails
-import my.test.task.buildings.webclient.WebClientService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

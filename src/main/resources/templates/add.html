@@ -55,12 +55,21 @@
         }
 
         .card-body {
-            padding: 30px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
         }
 
         .form-group label {
             font-weight: bold;
             text-align: left;
+            font-size: 14px;
+        }
+
+        .form-control {
+            font-size: 14px;
         }
 
         .btn-custom {
@@ -74,6 +83,25 @@
         }
 
         .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-send {
+            background-color: grey;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: not-allowed;
+            transition: background-color 0.3s;
+        }
+
+        .btn-send.active {
+            background-color: #007bff;
+            cursor: pointer;
+        }
+
+        .btn-send.active:hover {
             background-color: #0056b3;
         }
     </style>
@@ -151,13 +179,16 @@
             </form>
         </div>
     </div>
+    <button id="sendInfoButton" class="btn btn-send btn-block" disabled>Send Info</button>
 </div>
 
 <script>
+    let buildings = [];
+
     document.getElementById('buildingForm').addEventListener('submit', function (event) {
         event.preventDefault();
 
-        const formData = {
+        const buildingData = {
             buildingName: document.getElementById("buildingName").value,
             street: document.getElementById("street").value,
             number: document.getElementById("number").value,
@@ -166,23 +197,40 @@
             postalCode: document.getElementById("postalCode").value
         };
 
-        fetch('/public/api/buildings/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(formData)
-        })
-            .then(response => {
-                if (response.status == "200") {
-                    alert('Building added to DB');
-                    window.location.href = '/public/api/buildings/';
-                } else {
-                    alert('Building was not added!');
-                }
+        buildings.push(buildingData);
+        this.reset();
+
+        const sendInfoButton = document.getElementById("sendInfoButton");
+        if (buildings.length > 0) {
+            sendInfoButton.classList.add("active");
+            sendInfoButton.disabled = false;
+        }
+
+        alert('Building added to the list');
+    });
+
+    document.getElementById("sendInfoButton").addEventListener('click', function () {
+        if (buildings.length > 0) {
+            fetch('/public/api/buildings/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ buildings: buildings })
             })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error adding building. Please try again.');
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert('Buildings information sent successfully');
+                        buildings = [];
+                        this.classList.remove("active");
+                        this.disabled = true;
+                    } else {
+                        alert('Failed to send buildings information');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error sending buildings information. Please try again.');
+                });
+        }
     });
 </script>
 

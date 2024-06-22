@@ -3,6 +3,8 @@ package my.test.task.buildings.controller
 import lombok.extern.slf4j.Slf4j
 import my.test.task.buildings.annotation.LogRequest
 import my.test.task.buildings.domain.api.BuildingFilterRequest
+import my.test.task.buildings.domain.api.BuildingRequest
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.handler.BuildingRequestHandler
@@ -50,13 +52,13 @@ class BuildingController(
 
     @LogRequest
     @PostMapping("/")
-    fun saveBuildings(@RequestBody request: Map<String, String>, model: Model): String =
+    fun saveBuildings(@RequestBody request: BuildingRequest, model: Model): String =
         buildingRequestHandler.saveBuilding(request, model)
 
     @LogRequest
     @PutMapping("/")
-    fun updateBuildings(@RequestBody request: Map<String, String>, model: Model): String =
-        buildingRequestHandler.updateBuilding(request, model)
+    fun updateBuildings(@RequestBody buildingEntity: BuildingEntity, model: Model): String =
+        buildingRequestHandler.updateBuilding(buildingEntity, model)
 
     @LogRequest
     @DeleteMapping("/{id}")

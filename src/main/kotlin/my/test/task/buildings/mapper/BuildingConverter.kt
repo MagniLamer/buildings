@@ -13,8 +13,8 @@ interface BuildingConverter {
 
     fun convertBuildingToEntity(building: Building): BuildingEntity
 
-    fun updateBuildingEntity(building: Building, buildingEntity: BuildingEntity): BuildingEntity
+    fun updateBuildingEntity(newBuildingEntity: BuildingEntity, oldBuildingEntity: BuildingEntity): BuildingEntity
 
-    fun addCoordinateToBuilding(building: Building, geoResponse: GeoResponse?): Building
+    fun addCoordinateToBuilding(building: BuildingEntity, geoResponse: GeoResponse?): BuildingEntity
      fun convertMapToBuilding(request: Map<String, String>): Building
 }

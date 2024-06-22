@@ -25,6 +25,7 @@ data class BuildingEntity(
     @Column(name = "id", updatable = false, nullable = false)
     @JsonProperty("buildingId")
     val id: UUID? = null,
+    @JsonProperty("buildingName")
     val name: String? = null,
     val street: String? = null,
     val number: Int? = null,

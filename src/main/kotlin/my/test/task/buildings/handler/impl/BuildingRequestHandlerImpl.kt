@@ -4,6 +4,8 @@ import jakarta.persistence.criteria.Predicate
 import jakarta.transaction.Transactional
 import lombok.extern.slf4j.Slf4j
 import my.test.task.buildings.domain.api.BuildingFilterRequest
+import my.test.task.buildings.domain.api.BuildingRequest
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.exception.BuildingIdNotFoundException
@@ -32,24 +34,21 @@ class BuildingRequestHandlerImpl(
 ) : BuildingRequestHandler {
 
     @Transactional
-    override fun saveBuilding(request: Map<String, String>, model: Model): String {
-        val building = buildingConverter.convertMapToBuilding(request)
-        val buildingEntity = buildingConverter.convertBuildingToEntity(building)
-        val savedWithoutCoordinates = buildingJpaRepository.save(buildingEntity)
-        CompletableFuture.runAsync {
-            val buildingId = savedWithoutCoordinates.id
-            updateBuildingWithCoordinates(building, buildingId)
+    override fun saveBuilding(request: BuildingRequest, model: Model): String {
+        for (buildingEntity in request.buildings) {
+            val savedWithoutCoordinates = buildingJpaRepository.save(buildingEntity)
+            CompletableFuture.runAsync {
+                updateBuildingWithCoordinates(buildingEntity, savedWithoutCoordinates.id)
+            }
+            log.info("The building with id: ${savedWithoutCoordinates.id} \n was saved to DB")
         }
-
-        log.info("The building with id: ${savedWithoutCoordinates.id} \n was saved to DB")
         return "add"
     }
 
     @Transactional
-    override fun updateBuilding(request: Map<String, String>, model: Model): String {
-        val building = buildingConverter.convertMapToBuilding(request)
-        building.id?.let {
-            updateBuildingWithCoordinates(building, it)
+    override fun updateBuilding(buildingEntity: BuildingEntity, model: Model): String {
+        buildingEntity.id?.let {
+            updateBuildingWithCoordinates(buildingEntity, it)
             return "update"
         } ?: throw IncorrectBuildingIdException()
     }
@@ -98,7 +97,7 @@ class BuildingRequestHandlerImpl(
     }
 
 
-    private fun updateBuildingWithCoordinates(building: Building, buildingId: UUID?) {
+    private fun updateBuildingWithCoordinates(building: BuildingEntity, buildingId: UUID?) {
         val buildingWithCoordinates = coordinateService.addCoordinatesToBuilding(building)
         buildingId?.let {
             buildingJpaRepository.findById(it).map {

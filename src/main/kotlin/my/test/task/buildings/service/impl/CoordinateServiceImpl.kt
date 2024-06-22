@@ -3,6 +3,7 @@ package my.test.task.buildings.service.impl
 import com.fasterxml.jackson.databind.ObjectMapper
 import lombok.extern.slf4j.Slf4j
 import my.test.task.buildings.domain.api.GeoResponse
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.mapper.BuildingConverter
 import my.test.task.buildings.service.CoordinateService
@@ -19,8 +20,9 @@ class CoordinateServiceImpl(
     private val geoRequestService: GeoRequestService
 ) : CoordinateService {
 
-    override fun addCoordinatesToBuilding(building:Building): Building {
-        val responseDetails = geoRequestService.performRequest(building).get()
+    override fun addCoordinatesToBuilding(buildingEntity:  BuildingEntity): BuildingEntity {
+
+        val responseDetails = geoRequestService.performRequest( buildingEntity).get()
         val geoResponse: GeoResponse? = try {
             customObjectMapper.readValue(responseDetails.response.body, GeoResponse::class.java)
         } catch (ex: Exception) {
@@ -31,6 +33,6 @@ class CoordinateServiceImpl(
             null
         }
 
-        return buildingConverter.addCoordinateToBuilding(building, geoResponse)
+        return buildingConverter.addCoordinateToBuilding(buildingEntity, geoResponse)
     }
 }

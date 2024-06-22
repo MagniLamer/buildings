@@ -4,7 +4,6 @@ import my.test.task.buildings.domain.api.GeoResponse
 import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingAddress
-import my.test.task.buildings.domain.model.BuildingCoordinates
 import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.mapper.BuildingConverter
 import org.springframework.stereotype.Service
@@ -57,39 +56,38 @@ class BuildingConverterImpl : BuildingConverter {
         }
     }
 
-    override fun updateBuildingEntity(building: Building, buildingEntity: BuildingEntity): BuildingEntity {
-        val address = building.buildingAddress
+    override fun updateBuildingEntity(newBuilding: BuildingEntity, oldBuilding: BuildingEntity): BuildingEntity {
         return BuildingEntity(
-            id = building.id ?: buildingEntity.id,
-            name = building.name ?: buildingEntity.name,
-            street = address?.street ?: buildingEntity.street,
-            number = address?.number ?: buildingEntity.number,
-            postalCode = address?.postalCode ?: buildingEntity.postalCode,
-            city = address?.city ?: buildingEntity.city,
-            country = address?.country ?: buildingEntity.country,
-            coordinate_x = address?.coordinates?.coordinateX ?: buildingEntity.coordinate_x,
-            coordinate_y = address?.coordinates?.coordinateY ?: buildingEntity.coordinate_y,
-            description = building.description ?: buildingEntity.description
+            id = oldBuilding.id,
+            name = newBuilding.name ?: oldBuilding.name,
+            street = newBuilding.street ?: oldBuilding.street,
+            number = newBuilding.number ?: oldBuilding.number,
+            postalCode = newBuilding.postalCode ?: oldBuilding.postalCode,
+            city = newBuilding.city ?: oldBuilding.city,
+            country = newBuilding.country ?: oldBuilding.country,
+            coordinate_x = newBuilding.coordinate_x ?: oldBuilding.coordinate_x,
+            coordinate_y = newBuilding.coordinate_y ?: oldBuilding.coordinate_y,
+            description = newBuilding.description ?: oldBuilding.description
         )
     }
 
-    override fun addCoordinateToBuilding(building: Building, geoResponse: GeoResponse?): Building {
-        val coordinates = geoResponse?.features?.first()?.geometry?.coordinates
-        return Building.BuildingBuilder.newBuilder()
-            .name(building.name)
-            .description(building.description)
-            .buildingAddress(
-                BuildingAddress.BuildingAddressBuilder.newBuilder(
-                    building.buildingAddress,
-                    BuildingCoordinates.BuildingCoordinatesBuilder.newBuilder()
-                        .coordinateX(coordinates?.get(0))
-                        .coordinateY(coordinates?.get(1))
-                        .build()
-                )
-                    .build()
+    override fun addCoordinateToBuilding(buildingEntity: BuildingEntity, geoResponse: GeoResponse?): BuildingEntity =
+        with(buildingEntity) {
+            val coordinates = geoResponse?.features?.first()?.geometry?.coordinates
+            BuildingEntity(
+                id = id,
+                name = name,
+                street = street,
+                number = number,
+                postalCode = postalCode,
+                city = city,
+                country = country,
+                coordinate_x = coordinates?.get(1),
+                coordinate_y = coordinates?.get(0),
+                description = description
             )
-            .build()
-    }
+
+        }
 
     override fun convertMapToBuilding(request: Map<String, String>): Building {
         return Building.BuildingBuilder.newBuilder()

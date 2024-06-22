@@ -11,8 +11,7 @@ interface BuildingRequestHandler {
     fun saveBuilding(buildings: BuildingRequest, model: Model): String
     fun updateBuilding(buildingEntity: BuildingEntity, model: Model): String
     fun deleteBuilding(buildingId: String, model: Model): String
-    fun getBuildingById(buildingId: String, model: Model): String
     fun getAllBuildings(model: Model):String
-    fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingDTO>
+    fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingEntity>
 
 }

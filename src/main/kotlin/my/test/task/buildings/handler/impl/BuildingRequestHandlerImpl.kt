@@ -61,19 +61,15 @@ class BuildingRequestHandlerImpl(
         return "delete"
     }
 
-    override fun getBuildingById(buildingId: String, model: Model): String {
-        TODO("Not yet implemented")
-    }
-
     override fun getAllBuildings(model: Model): String {
         val firstPageWithTwentyRecords = PageRequest.of(0, 20)
         val allBuildings = buildingJpaRepository.findAll(firstPageWithTwentyRecords)
         model.addAttribute(BUILDING, allBuildings)
-        return "main_page"
+        return "filter"
     }
 
-    override fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingDTO> {
-        val spec = Specification<Building> { root, query, criteriaBuilder ->
+    override fun filterBuildings(filterRequest: BuildingFilterRequest): List<BuildingEntity> {
+        val spec = Specification<BuildingEntity> { root, query, criteriaBuilder ->
             val predicates = mutableListOf<Predicate>()
 
             if (StringUtils.hasText(filterRequest.buildingName)) {
@@ -93,7 +89,7 @@ class BuildingRequestHandlerImpl(
         }
         val buildings = buildingJpaRepository.findAll(spec)
 
-        return buildingConverter.convertEntityToBuilding(buildings)
+        return buildings
     }
 
 

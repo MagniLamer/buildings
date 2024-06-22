@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import java.util.UUID
 
 @Repository
-interface BuildingJpaRepository : JpaRepository<BuildingEntity,UUID> , JpaSpecificationExecutor<Building> {
+interface BuildingJpaRepository : JpaRepository<BuildingEntity,UUID> , JpaSpecificationExecutor<BuildingEntity> {
     override fun findAll(pageable: Pageable): Page<BuildingEntity>
 }

@@ -5,8 +5,6 @@ import my.test.task.buildings.annotation.LogRequest
 import my.test.task.buildings.domain.api.BuildingFilterRequest
 import my.test.task.buildings.domain.api.BuildingRequest
 import my.test.task.buildings.domain.entity.BuildingEntity
-import my.test.task.buildings.domain.model.Building
-import my.test.task.buildings.domain.model.BuildingDTO
 import my.test.task.buildings.handler.BuildingRequestHandler
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -44,11 +42,6 @@ class BuildingController(
     fun getAllBuildings(model: Model): String =
         buildingRequestHandler.getAllBuildings(model)
 
-    @LogRequest
-    @GetMapping("/{id}")
-    fun getBuildingById(@PathVariable(name = "id") buildingId: String, model: Model): String {
-        return buildingRequestHandler.getBuildingById(buildingId, model);
-    }
 
     @LogRequest
     @PostMapping("/")
@@ -68,8 +61,8 @@ class BuildingController(
 
     @LogRequest
     @PostMapping("/filter")
-    fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<BuildingDTO>>? {
-        val buildings: List<BuildingDTO> = buildingRequestHandler.filterBuildings(filterRequest)
+    fun filterBuildings(@RequestBody filterRequest: BuildingFilterRequest): ResponseEntity<List<BuildingEntity>>? {
+        val buildings = buildingRequestHandler.filterBuildings(filterRequest)
         return ResponseEntity.ok(buildings)
     }
 }

@@ -17,10 +17,10 @@ internal class BuildingConverterImplTest {
     @Test
     fun `should update building entity`() {
         //given
-        val building = Building.BuildingBuilder.newBuilder()
-            .name(NEW_NAME)
-            .description(NEW_DESCRIPTION)
-            .build()
+        val building = BuildingEntity(
+            name = NEW_NAME,
+            description= NEW_DESCRIPTION
+        )
         val buildingEntity = BuildingEntity(
             name = OLD_NAME,
             description = OLD_DESCRIPTION

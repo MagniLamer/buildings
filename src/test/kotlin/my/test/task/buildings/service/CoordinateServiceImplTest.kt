@@ -7,6 +7,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import my.test.task.buildings.domain.api.FeaturesItem
 import my.test.task.buildings.domain.api.GeoResponse
 import my.test.task.buildings.domain.api.Geometry
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.ResponseDetails
 import my.test.task.buildings.mapper.BuildingConverter
@@ -57,10 +58,8 @@ class CoordinateServiceImplTest {
     fun `should call coordinate service`() {
         //given
         val body = readFile("geo_response.json")
-        val params = emptyMap<String, String>()
-        val mockBuilding: Building = mock()
+        val mockBuilding: BuildingEntity = mock()
         val responseDetails = ResponseDetails(ResponseEntity(body, HttpStatus.OK))
-                given { buildingConverter.convertMapToBuilding(params) }.willReturn(mockBuilding)
         given { geoRequestService.performRequest(mockBuilding) }
             .willReturn(CompletableFuture.completedFuture(responseDetails))
 

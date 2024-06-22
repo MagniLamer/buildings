@@ -1,8 +1,10 @@
 package my.test.task.buildings.service.impl
 
+import my.test.task.buildings.domain.entity.BuildingEntity
 import my.test.task.buildings.domain.model.Building
 import my.test.task.buildings.domain.model.BuildingAddress
 import my.test.task.buildings.domain.model.ResponseDetails
+import my.test.task.buildings.webclient.WebClientService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -33,14 +35,12 @@ internal class GeoRequestServiceImplTest {
     @Test
     fun `should perform request`() {
         // given
-        val building = Building(
-            buildingAddress = BuildingAddress(
+        val building = BuildingEntity(
                 number = 1,
                 street = "street",
                 city = "city",
                 postalCode = "postalCode",
                 country = "country"
-            )
         )
 
         val responseDetails: ResponseDetails = mock()
